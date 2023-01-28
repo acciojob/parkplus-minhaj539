@@ -1,19 +1,24 @@
 package com.driver.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "parking_lots")
+
 public class ParkingLot {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String name;
+
     private String address;
 
-    @OneToMany(mappedBy = "parkingLot",cascade = CascadeType.ALL)
-    private List<Spot> spotList;
+    @OneToMany(mappedBy = "parkingLot", cascade = CascadeType.ALL)
+    private List<Spot> spotList = new ArrayList<>();
 
     public ParkingLot() {
     }
