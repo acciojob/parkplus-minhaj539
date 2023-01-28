@@ -28,11 +28,9 @@ public class Spot {
     public Spot(int numberOfWheels,int pricePerHour){
         this.pricePerHour=pricePerHour;
         this.occupied=false;
-        if(numberOfWheels==2) this.spotType=SpotType.TWO_WHEELER;
-        else if(numberOfWheels==4) this.spotType=SpotType.FOUR_WHEELER;
+        if(numberOfWheels<=2) this.spotType=SpotType.TWO_WHEELER;
+        else if(numberOfWheels<=4) this.spotType=SpotType.FOUR_WHEELER;
         else this.spotType=SpotType.OTHERS;
-
-
     }
 
     public int getId() {
