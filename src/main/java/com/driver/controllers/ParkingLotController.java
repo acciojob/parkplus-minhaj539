@@ -19,13 +19,15 @@ public class ParkingLotController {
     ParkingLotServiceImpl parkingLotService;
 
     @PostMapping("/add")
-    public ResponseEntity<ParkingLot> addParkingLot(@RequestParam String name, @RequestParam String address) {
+    public ResponseEntity<ParkingLot> addParkingLot(@RequestParam("name") String name, @RequestParam("address") String address) {
+        ParkingLot newParkingLot= parkingLotService.addParkingLot(name,address);
         //add a new parking lot to the database
         return new ResponseEntity<>(newParkingLot, HttpStatus.CREATED);
     }
 
     @PostMapping("/{parkingLotId}/spot/add")
-    public ResponseEntity<Spot> addSpot(@PathVariable int parkingLotId, @RequestParam Integer numberOfWheels, @RequestParam Integer pricePerHour) {
+    public ResponseEntity<Spot> addSpot(@PathVariable int parkingLotId, @RequestParam("numberOfWheels") Integer numberOfWheels, @RequestParam("pricePerHour") Integer pricePerHour) {
+        Spot newSpot= parkingLotService.addSpot(parkingLotId,numberOfWheels,pricePerHour);
         //create a new spot in the parkingLot with given id
         //the spot type should be the next biggest type in case the number of wheels are not 2 or 4, for 4+ wheels, it is others
         return new ResponseEntity<>(newSpot, HttpStatus.CREATED);
@@ -33,19 +35,22 @@ public class ParkingLotController {
 
     @DeleteMapping("/spot/{spotId}/delete")
     public ResponseEntity<Void> deleteSpot(@PathVariable int spotId) {
+        parkingLotService.deleteSpot(spotId);
         //delete a spot from given parking lot
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping("/{parkingLotId}/spot/{spotId}/update")
-    public ResponseEntity<Spot> updateSpot(@PathVariable int parkingLotId, @PathVariable int spotId, @RequestParam int pricePerHour) {
+    public ResponseEntity<Spot> updateSpot(@PathVariable int parkingLotId, @PathVariable int spotId, @RequestParam("pricePerHour") int pricePerHour) {
         //update the details of a spot
+        Spot updatedSpot= parkingLotService.updateSpot(parkingLotId,spotId,parkingLotId);
         return new ResponseEntity<>(updatedSpot, HttpStatus.OK);
     }
 
     @DeleteMapping("/{parkingLotId}/delete")
     public ResponseEntity<Void> deleteParkingLot(@PathVariable int parkingLotId) {
         //delete a parkingLot
+        parkingLotService.deleteParkingLot(parkingLotId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
