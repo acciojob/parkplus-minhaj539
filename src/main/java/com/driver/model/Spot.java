@@ -28,6 +28,7 @@ public class Spot {
     private List<Reservation> reservations = new ArrayList<>();
 
     public Spot() {
+        this.occupied=false;
     }
 
 
